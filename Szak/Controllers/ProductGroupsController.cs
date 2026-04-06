@@ -23,4 +23,18 @@ public class ProductGroupsController : ControllerBase
         await _context.SaveChangesAsync();
         return Ok(group);
     }
+    [HttpPost]
+public async Task<IActionResult> CreateGroup(CreateProductGroupDto dto)
+{
+    var group = new ProductGroup
+    {
+        Name = dto.Name
+    };
+
+    _context.ProductGroups.Add(group);
+    await _context.SaveChangesAsync();
+
+    return Ok(group);
+}
+
 }
