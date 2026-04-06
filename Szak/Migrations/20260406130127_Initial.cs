@@ -6,11 +6,26 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Szak.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Companies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Director = table.Column<string>(type: "TEXT", nullable: false),
+                    Address = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Companies", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Packages",
                 columns: table => new
@@ -32,7 +47,9 @@ namespace Szak.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     TaxNumber = table.Column<string>(type: "TEXT", nullable: false),
-                    Email = table.Column<string>(type: "TEXT", nullable: false)
+                    Email = table.Column<string>(type: "TEXT", nullable: false),
+                    IsVip = table.Column<bool>(type: "INTEGER", nullable: false),
+                    VipDiscountPercent = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -50,6 +67,22 @@ namespace Szak.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProductGroups", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Promotions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    DiscountPercent = table.Column<decimal>(type: "TEXT", nullable: false),
+                    ValidFrom = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ValidTo = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Promotions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -96,6 +129,30 @@ namespace Szak.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PromotionGroups",
+                columns: table => new
+                {
+                    PromotionId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ProductGroupId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PromotionGroups", x => new { x.PromotionId, x.ProductGroupId });
+                    table.ForeignKey(
+                        name: "FK_PromotionGroups_ProductGroups_ProductGroupId",
+                        column: x => x.ProductGroupId,
+                        principalTable: "ProductGroups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PromotionGroups_Promotions_PromotionId",
+                        column: x => x.PromotionId,
+                        principalTable: "Promotions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PackageItems",
                 columns: table => new
                 {
@@ -118,6 +175,30 @@ namespace Szak.Migrations
                         name: "FK_PackageItems_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PromotionProducts",
+                columns: table => new
+                {
+                    PromotionId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ProductId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PromotionProducts", x => new { x.PromotionId, x.ProductId });
+                    table.ForeignKey(
+                        name: "FK_PromotionProducts_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PromotionProducts_Promotions_PromotionId",
+                        column: x => x.PromotionId,
+                        principalTable: "Promotions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -171,6 +252,16 @@ namespace Szak.Migrations
                 column: "ProductGroupId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PromotionGroups_ProductGroupId",
+                table: "PromotionGroups",
+                column: "ProductGroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PromotionProducts_ProductId",
+                table: "PromotionProducts",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SaleLines_PackageId",
                 table: "SaleLines",
                 column: "PackageId");
@@ -195,10 +286,22 @@ namespace Szak.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Companies");
+
+            migrationBuilder.DropTable(
                 name: "PackageItems");
 
             migrationBuilder.DropTable(
+                name: "PromotionGroups");
+
+            migrationBuilder.DropTable(
+                name: "PromotionProducts");
+
+            migrationBuilder.DropTable(
                 name: "SaleLines");
+
+            migrationBuilder.DropTable(
+                name: "Promotions");
 
             migrationBuilder.DropTable(
                 name: "Packages");

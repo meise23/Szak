@@ -10,14 +10,37 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Szak.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260322160746_AddPromotions")]
-    partial class AddPromotions
+    [Migration("20260406130127_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.1");
+
+            modelBuilder.Entity("Company", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Director")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Companies");
+                });
 
             modelBuilder.Entity("Package", b =>
                 {
@@ -68,6 +91,9 @@ namespace Szak.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("IsVip")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -75,6 +101,9 @@ namespace Szak.Migrations
                     b.Property<string>("TaxNumber")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("VipDiscountPercent")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
