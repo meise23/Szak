@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Szak")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+43f772adbc365180a3b3c0b88a94fcf51e06d572")]
 [assembly: System.Reflection.AssemblyProductAttribute("Szak")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Szak")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
