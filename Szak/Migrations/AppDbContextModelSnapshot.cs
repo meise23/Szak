@@ -16,6 +16,29 @@ namespace Szak.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.1");
 
+            modelBuilder.Entity("Company", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Director")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Companies");
+                });
+
             modelBuilder.Entity("Package", b =>
                 {
                     b.Property<int>("Id")
@@ -65,6 +88,9 @@ namespace Szak.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("IsVip")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -72,6 +98,9 @@ namespace Szak.Migrations
                     b.Property<string>("TaxNumber")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("VipDiscountPercent")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
