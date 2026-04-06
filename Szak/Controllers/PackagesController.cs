@@ -16,7 +16,7 @@ public class PackagesController : ControllerBase
     public async Task<IEnumerable<Package>> Get() =>
         await _context.Packages
             .Include(p => p.Items)
-            //.Include(p => p.Items)
+           
             .ThenInclude(i => i.Product)
             .ToListAsync();
 

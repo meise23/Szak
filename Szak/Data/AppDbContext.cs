@@ -18,6 +18,8 @@ public class AppDbContext : DbContext
   public DbSet<PromotionProduct> PromotionProducts => Set<PromotionProduct>();
   public DbSet<PromotionGroup> PromotionGroups => Set<PromotionGroup>();
 
+  public DbSet<Company> Companies {get;set;}
+
   /*protected override void  OnConfiguring(DbContextOptionsBuilder options) {
      options.UseSqlite("Data Source=demo.db");
   }*/
