@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Bucsi Gábor\\Desktop\\szakdoga\\web\\Szak\\Szak\\Szak.csproj": {}
+    "C:\\Users\\Bucsi Gábor\\Desktop\\szakdoga\\web\\Szak\\szak\\Szak.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Bucsi Gábor\\Desktop\\szakdoga\\web\\Szak\\Szak\\Szak.csproj": {
+    "C:\\Users\\Bucsi Gábor\\Desktop\\szakdoga\\web\\Szak\\szak\\Szak.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Bucsi Gábor\\Desktop\\szakdoga\\web\\Szak\\Szak\\Szak.csproj",
+        "projectUniqueName": "C:\\Users\\Bucsi Gábor\\Desktop\\szakdoga\\web\\Szak\\szak\\Szak.csproj",
         "projectName": "Szak",
-        "projectPath": "C:\\Users\\Bucsi Gábor\\Desktop\\szakdoga\\web\\Szak\\Szak\\Szak.csproj",
+        "projectPath": "C:\\Users\\Bucsi Gábor\\Desktop\\szakdoga\\web\\Szak\\szak\\Szak.csproj",
         "packagesPath": "C:\\Users\\Bucsi Gábor\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Bucsi Gábor\\Desktop\\szakdoga\\web\\Szak\\Szak\\obj\\",
+        "outputPath": "C:\\Users\\Bucsi Gábor\\Desktop\\szakdoga\\web\\Szak\\szak\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

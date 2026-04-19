@@ -17,6 +17,14 @@ public class CompanyController : ControllerBase
     {
         
         var company = await _context.Companies.FirstOrDefaultAsync();
+        if (company == null)
+    {
+        return Ok(new {
+            name = "",
+            director = "",
+            address = ""
+        });
+    }
         return Ok(company);
     }
 

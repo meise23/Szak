@@ -8,6 +8,8 @@ public class AppDbContext : DbContext
   public DbSet <Product> Products {get;set;}
   public DbSet <Partner> Partners {get;set;}
   public DbSet<ProductGroup> ProductGroups => Set<ProductGroup>();
+
+  public DbSet<ProductGroupItem> ProductGroupItems {get; set;}
   public DbSet<Package> Packages => Set<Package>();
   public DbSet<PackageItem> PackageItems => Set<PackageItem>();
 

@@ -13,28 +13,28 @@ public class ProductGroupsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<ProductGroup>> Get() =>await _context.ProductGroups.Include(g => g.Products).ToListAsync();
-        //await _context.ProductGroups.Include(g => g.Products).ToListAsync();
+    public async Task<IEnumerable<ProductGroup>> Get()
+        => await _context.ProductGroups
+            .Include(g => g.Items)
+            .ThenInclude(i => i.Product)
+            .ToListAsync();
 
     [HttpPost]
-    public async Task<IActionResult> Create(ProductGroup group)
+    public async Task<IActionResult> CreateGroup(CreateProductGroupDto dto)
     {
+        var group = new ProductGroup
+        {
+            Name = dto.Name,
+            Items = dto.Items.Select(i => new ProductGroupItem
+            {
+                ProductId = i.ProductId,
+                Quantity = i.Quantity
+            }).ToList()
+        };
+
         _context.ProductGroups.Add(group);
         await _context.SaveChangesAsync();
+
         return Ok(group);
     }
-    [HttpPost]
-public async Task<IActionResult> CreateGroup(CreateProductGroupDto dto)
-{
-    var group = new ProductGroup
-    {
-        Name = dto.Name
-    };
-
-    _context.ProductGroups.Add(group);
-    await _context.SaveChangesAsync();
-
-    return Ok(group);
-}
-
 }

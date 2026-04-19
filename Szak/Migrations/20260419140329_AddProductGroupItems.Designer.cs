@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Szak.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260419140329_AddProductGroupItems")]
+    partial class AddProductGroupItems
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.1");
@@ -152,30 +155,6 @@ namespace Szak.Migrations
                     b.ToTable("ProductGroups");
                 });
 
-            modelBuilder.Entity("ProductGroupItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ProductGroupId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductGroupId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductGroupItem");
-                });
-
             modelBuilder.Entity("Promotion", b =>
                 {
                     b.Property<int>("Id")
@@ -306,27 +285,8 @@ namespace Szak.Migrations
             modelBuilder.Entity("Product", b =>
                 {
                     b.HasOne("ProductGroup", "ProductGroup")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("ProductGroupId");
-
-                    b.Navigation("ProductGroup");
-                });
-
-            modelBuilder.Entity("ProductGroupItem", b =>
-                {
-                    b.HasOne("ProductGroup", "ProductGroup")
-                        .WithMany("Items")
-                        .HasForeignKey("ProductGroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
 
                     b.Navigation("ProductGroup");
                 });
@@ -410,7 +370,7 @@ namespace Szak.Migrations
 
             modelBuilder.Entity("ProductGroup", b =>
                 {
-                    b.Navigation("Items");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Promotion", b =>
